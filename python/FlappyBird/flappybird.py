@@ -34,9 +34,11 @@ def update():
     bird.vel_y = bird.vel_y + GRAVITY
     bird.y = bird.y + (update_y + bird.vel_y) / 2
     bird.x = 75
+    bird.angle = 0
     
     if not bird.dead:
         if bird.vel_y < -3:
+            bird.angle = 45
             bird.image = "bird2"
         else:
             bird.image = "bird1"
