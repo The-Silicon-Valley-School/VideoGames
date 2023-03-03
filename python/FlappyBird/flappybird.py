@@ -9,7 +9,7 @@ HEIGHT = 700
 
 GAP = 130
 GRAVITY = 0.1
-FLAP = 4.5
+FLAP = 4
 SPEED = 3
 
 # Characters
@@ -23,7 +23,7 @@ pipe_bottom = Actor("bottom_pipe", anchor=("left", "top"), pos=(-100, 0))
 
 
 def reset_pipes():
-    pipe_gap_y = random.randint(250, HEIGHT - 250)
+    pipe_gap_y = random.randint(200, HEIGHT - 200)
     pipe_top.pos = (WIDTH, pipe_gap_y - GAP // 2)
     pipe_bottom.pos = (WIDTH, pipe_gap_y + GAP // 2)
 
@@ -41,9 +41,10 @@ def update():
         else:
             bird.image = "bird1"
     
-    if bird.colliderect(pipe_top) or bird.colliderect(pipe_bottom):
+    if not bird.dead and (bird.colliderect(pipe_top) or bird.colliderect(pipe_bottom)):
         bird.dead = True
         bird.image = "birddead"
+        sounds.die.play()
     
     if bird.y < 0 or bird.y > 720:
         bird.y = 200
@@ -56,14 +57,16 @@ def update():
     # Update pipes
     pipe_top.left = pipe_top.left - SPEED
     pipe_bottom.left = pipe_bottom.left - SPEED
-    if pipe_top.right < 0:
+    if pipe_top.right < 0 and not bird.dead:
         reset_pipes()
-        bird.score += 1 
+        bird.score += 1
+        sounds.point.play()
     
 
 def on_key_down():
     if not bird.dead:
         bird.vel_y = FLAP * -1
+        sounds.wing.play()
     
 
 def draw():
