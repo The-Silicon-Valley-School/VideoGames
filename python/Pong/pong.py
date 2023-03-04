@@ -14,7 +14,9 @@ HEIGHT = 600
 TITLE = 'pong'
 
 # a color used to draw things
-MAIN_COLOR = 'yellow'
+MAIN_COLOR = 'green'
+WHITE = 'white'
+
 
 # width and height of a player paddle
 PADDLE_WIDTH = 15
@@ -73,7 +75,7 @@ class TennisBall():
         self.y += self.dy
 
     def draw(self):
-        screen.draw.filled_circle(self.pos, TENNIS_BALL_RADIUS, MAIN_COLOR)
+        screen.draw.filled_circle(self.pos, TENNIS_BALL_RADIUS, WHITE)
 
 
 class Game():
@@ -225,17 +227,19 @@ class Game():
 
         # show the score for the left player
         screen.draw.text(
-            'Computer: {}'.format(self.score_left),
-            color=MAIN_COLOR,
+            f'Computer  {self.score_left}',
+            color=WHITE,
             center=(WIDTH/4 - 20, 20),
+            fontname="arcadeclassic",
             fontsize=48
         )
 
         # show the score for the right player
         screen.draw.text(
-            'Player: {}'.format(self.score_right),
-            color=MAIN_COLOR,
+            f'Player  {self.score_right}',
+            color=WHITE,
             center=(WIDTH/2 + WIDTH/4 - 20, 20),
+            fontname="arcadeclassic",
             fontsize=48
         )
 
